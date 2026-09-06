@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <Adafruit_SSD1306.h>
-#include "Pet.hpp"
+#include <Pet.hpp>
 
 
 /**
@@ -55,13 +55,8 @@ void loop() {
     lastUpdate = millis();
     display.display();
   }
-  
-  
-  
-  
+    
 
   pulga.update();
-  display.display();
-  delay(5);
 }
 
