@@ -2,7 +2,7 @@
 
 #include <Arduino.h>
 
-constexpr uint32_t UPDATE_TIME = 5000;
+constexpr uint16_t UPDATE_TIME = 5000;
 
 enum class MOOD {
     NORMAL,

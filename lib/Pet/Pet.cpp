@@ -84,7 +84,9 @@ void Pet::update() {
                 }
                 break;
             case 2:
-                increaseTiredness();
+                if (hungry < LIMIT_VALUE) {
+                    increaseTiredness();
+                }
                 break;
         }
 

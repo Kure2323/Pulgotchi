@@ -7,9 +7,9 @@
  * SSD1306 SCL goes to ESP32 SCL pin -> D22
  * SSD1306 SDA goes to ESP32 SDA pin -> D21
  */
-#define SCREEN_WIDTH 128 // OLED display width, in pixels
-#define SCREEN_HEIGHT 64 // OLED display height, in pixels
-#define SCREEN_ADDRESS 0x3C // Check the back of the display for address -> Usually 0x03C or 0x03D
+constexpr uint8_t SCREEN_WIDTH = 128; // OLED display width, in pixels
+constexpr uint8_t SCREEN_HEIGHT = 64; // OLED display height, in pixels
+constexpr uint8_t SCREEN_ADDRESS = 0x3C; // Check the back of the display for address -> Usually 0x03C or 0x03D
 
 /**
  * Buttons
@@ -46,7 +46,7 @@ void setup() {
   
 }
 
-uint lastUpdate = 0;
+uint32_t lastUpdate = 0;
 void loop() {
   // put your main code here, to run repeatedly:
 
