@@ -1,26 +1,28 @@
 #include <Arduino.h>
 #include <Adafruit_SSD1306.h>
 #include <Pet.hpp>
+#include <ButtonHandler.hpp>
 
 
 /**
  * SSD1306 SCL goes to ESP32 SCL pin -> D22
  * SSD1306 SDA goes to ESP32 SDA pin -> D21
  */
-constexpr uint8_t SCREEN_WIDTH = 128; // OLED display width, in pixels
-constexpr uint8_t SCREEN_HEIGHT = 64; // OLED display height, in pixels
-constexpr uint8_t SCREEN_ADDRESS = 0x3C; // Check the back of the display for address -> Usually 0x03C or 0x03D
+constexpr uint8_t SCREEN_WIDTH { 128 }; // OLED display width, in pixels
+constexpr uint8_t SCREEN_HEIGHT { 64 }; // OLED display height, in pixels
+constexpr uint8_t SCREEN_ADDRESS { 0x3C }; // Check the back of the display for address -> Usually 0x03C or 0x03D
 
 /**
  * Buttons
  */
-#define LBUTTON 19
-#define RBUTTON 23
+constexpr uint8_t LBUTTON { 19 };
+constexpr uint8_t RBUTTON { 23 };
 #define ABUTTON 18 // Not used now (I need more cables ;( )
 
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT);
 Pet pulga;
+ButtonHandler buttonHandler(LBUTTON, RBUTTON);
 
 // FLASH -> 4MB
 // RAM -> 520KB
