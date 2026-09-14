@@ -15,24 +15,25 @@ constexpr uint8_t SCREEN_ADDRESS { 0x3C }; // Check the back of the display for 
 /**
  * Buttons
  */
-constexpr uint8_t LBUTTON { 19 };
-constexpr uint8_t RBUTTON { 23 };
-#define ABUTTON 18 // Not used now (I need more cables ;( )
+constexpr uint8_t L_BUTTON { 19 };
+constexpr uint8_t R_BUTTON { 23 };
+
+//#define A_BUTTON 18 // Not used now (I need more cables ;( )
 
 
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT);
-Pet pulga;
-ButtonHandler buttonHandler(LBUTTON, RBUTTON);
+static Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT);
+static Pet pet;
+static ButtonHandler buttonHandler(L_BUTTON, R_BUTTON);
 
 // FLASH -> 4MB
 // RAM -> 520KB
 void setup() {
   // put your setup code here, to run once:
-  const bool isInverted = false;
+  constexpr bool isInverted = false;
   
   Serial.begin(115200);
-  pinMode(LBUTTON, INPUT_PULLUP);
-  pinMode(RBUTTON, INPUT_PULLUP);
+  pinMode(L_BUTTON, INPUT_PULLUP);
+  pinMode(R_BUTTON, INPUT_PULLUP);
 
 
   // screen begin
@@ -48,7 +49,7 @@ void setup() {
   
 }
 
-uint32_t lastUpdate = 0;
+static uint32_t lastUpdate = 0;
 void loop() {
   // put your main code here, to run repeatedly:
 
@@ -59,6 +60,7 @@ void loop() {
   }
     
 
-  pulga.update();
+  pet.update();
+  buttonHandler.update();
 }
 

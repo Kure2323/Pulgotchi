@@ -2,11 +2,29 @@
 #include <ButtonHandler.hpp>
 
 
-ButtonHandler::ButtonHandler(const uint8_t& l, const uint8_t& r) {
-    lButton.buttonPin = &l;
-    rButton.buttonPin = &r;
+ButtonHandler::ButtonHandler(const uint8_t& leftButtonPin, const uint8_t& rightButtonPin) {
+    lButton.buttonPin = &leftButtonPin;
+    rButton.buttonPin = &rightButtonPin;
 }
 
+Button ButtonHandler::getButton(const uint8_t buttonPin) const {
+    if (buttonPin == *lButton.buttonPin) {
+        return lButton;
+    }
+    if (buttonPin == *rButton.buttonPin) {
+        return rButton;
+    }
+
+    Serial.println("Returning default button (left)");
+    return lButton;
+}
+
+static BUTTON_ACTION manageAction(const uint32_t& diff) {
+    if (diff < static_cast<int>(UMBRAL::LONG_PRESS)) {
+        return BUTTON_ACTION::SHORT_PRESS;
+    }
+    return BUTTON_ACTION::LONG_PRESS;
+}
 
 void ButtonHandler::update() {
     
@@ -16,8 +34,8 @@ void ButtonHandler::update() {
 
     for (Button* i : buttons) {
 
-        int reading { digitalRead(*i->buttonPin) };
-        uint32_t now { millis() };
+        const int reading { digitalRead(*i->buttonPin) };
+        const uint32_t now { millis() };
 
         // Begins the countdown
         if (reading == HIGH && i->pressed == false) {
@@ -27,9 +45,9 @@ void ButtonHandler::update() {
 
         // RT reading
         if (reading == HIGH && i->pressed == true) {
-            uint32_t rtDiff = now - i->deltaTime;
+            const uint32_t rtDiff = now - i->deltaTime;
 
-            if (rtDiff >= int(UMBRAL::GO_BACK)) {
+            if (rtDiff >= static_cast<int>(UMBRAL::GO_BACK)) {
                 if (tempGoBack) {
                     goBack = true;
                 } else {
@@ -37,11 +55,7 @@ void ButtonHandler::update() {
                 }
             }
 
-            if (rtDiff < int(UMBRAL::LONG_PRESS)) {
-                i->rtAction = BUTTON_ACTION::SHORT_PRESS;
-            } else if (rtDiff >= int(UMBRAL::LONG_PRESS)) {
-                i->rtAction = BUTTON_ACTION::LONG_PRESS;
-            }
+            i->rtAction = manageAction(rtDiff);
 
         }
 
@@ -50,13 +64,9 @@ void ButtonHandler::update() {
             goBack = false;
             i->pressed = false;
             i->rtAction = BUTTON_ACTION::NONE;
-            uint32_t diff = now - i->deltaTime;
+            const uint32_t diff = now - i->deltaTime;
 
-            if (diff < int(UMBRAL::LONG_PRESS)) {
-                i->onLowAction = BUTTON_ACTION::SHORT_PRESS;
-            } else if (diff >= int(UMBRAL::LONG_PRESS)) {
-                i->onLowAction = BUTTON_ACTION::LONG_PRESS;
-            }
+            i->onLowAction = manageAction(diff);
         }
         
         

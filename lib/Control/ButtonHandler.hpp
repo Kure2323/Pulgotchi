@@ -7,17 +7,17 @@ enum class UMBRAL {
     GO_BACK = 5000
 };
 
-enum BUTTON_ACTION {
+enum class BUTTON_ACTION {
     LONG_PRESS,
     SHORT_PRESS,
     NONE
 };
 
 struct Button {
-    const uint8_t* buttonPin;
+    const uint8_t* buttonPin { };
     uint8_t deltaTime { 0 };
-    BUTTON_ACTION rtAction { NONE };
-    BUTTON_ACTION onLowAction { NONE };
+    BUTTON_ACTION rtAction { BUTTON_ACTION::NONE };
+    BUTTON_ACTION onLowAction { BUTTON_ACTION::NONE };
     bool pressed { false };
 };
 
@@ -30,6 +30,7 @@ class ButtonHandler {
 
     public:
     ButtonHandler(const uint8_t& leftButtonPin, const uint8_t& rightButtonPin);
+    Button getButton(uint8_t buttonPin) const;
 
     void update();
 
