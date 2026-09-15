@@ -23,12 +23,12 @@ struct Button {
 
 class ButtonHandler {
 
-    private:
+private:
     Button lButton;
     Button rButton;
     bool goBack = false;
 
-    public:
+public:
     ButtonHandler(const uint8_t& leftButtonPin, const uint8_t& rightButtonPin);
     Button getButton(uint8_t buttonPin) const;
 

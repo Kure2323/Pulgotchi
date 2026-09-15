@@ -16,7 +16,7 @@ enum class MOOD {
 };
 
 class Pet {
-    private:
+private:
     uint32_t lastCheck = 0;
 
     MOOD actualMood = MOOD::NORMAL;
@@ -28,7 +28,7 @@ class Pet {
 
     void manageMood();
 
-    public:
+public:
     uint8_t getSadness(); 
     uint8_t getHungry(); 
     uint8_t getAnger();

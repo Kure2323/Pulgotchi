@@ -2,6 +2,7 @@
 #include <Adafruit_SSD1306.h>
 #include <Pet.hpp>
 #include <ButtonHandler.hpp>
+#include <App.hpp>
 
 
 /**

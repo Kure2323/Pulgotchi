@@ -57,6 +57,10 @@ void ButtonHandler::update() {
 
             i->rtAction = manageAction(rtDiff);
 
+            // Debug
+            Serial.println(*i->buttonPin);
+            Serial.println(" button pin rtA is: ");
+            Serial.println(static_cast<int>(i->rtAction));
         }
 
         // Once it is no longer pressed
@@ -67,6 +71,11 @@ void ButtonHandler::update() {
             const uint32_t diff = now - i->deltaTime;
 
             i->onLowAction = manageAction(diff);
+
+            // Debug
+            Serial.println(*i->buttonPin);
+            Serial.println(" button pin onL is: ");
+            Serial.println(static_cast<int>(i->onLowAction));
         }
         
         

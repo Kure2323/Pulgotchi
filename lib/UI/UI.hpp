@@ -10,13 +10,14 @@ enum class SCREEN {
 };
 
 class UI {
-    private:
+private:
     Adafruit_SSD1306& display;
     Pet copy; // To contrast. Need to search for other solutions
 
     void draw(SCREEN screen);
 
-    public:
+public:
+    UI(Adafruit_SSD1306 display);
     void update();
 
 };
