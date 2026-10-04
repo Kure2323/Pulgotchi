@@ -7,11 +7,11 @@ ButtonHandler::ButtonHandler(const uint8_t& leftButtonPin, const uint8_t& rightB
     rButton.buttonPin = &rightButtonPin;
 }
 
-Button ButtonHandler::getButton(const uint8_t buttonPin) const {
-    if (buttonPin == *lButton.buttonPin) {
+Button ButtonHandler::getButton(const char button) const {
+    if (tolower(button) == 'l') {
         return lButton;
     }
-    if (buttonPin == *rButton.buttonPin) {
+    if (tolower(button) == 'r') {
         return rButton;
     }
 
@@ -19,7 +19,7 @@ Button ButtonHandler::getButton(const uint8_t buttonPin) const {
     return lButton;
 }
 
-static BUTTON_ACTION manageAction(const uint32_t& diff) {
+BUTTON_ACTION manageAction(const uint32_t& diff) {
     if (diff < static_cast<int>(UMBRAL::LONG_PRESS)) {
         return BUTTON_ACTION::SHORT_PRESS;
     }

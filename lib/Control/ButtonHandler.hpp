@@ -14,7 +14,7 @@ enum class BUTTON_ACTION {
 };
 
 struct Button {
-    const uint8_t* buttonPin { };
+    const uint8_t* buttonPin { nullptr };
     uint8_t deltaTime { 0 };
     BUTTON_ACTION rtAction { BUTTON_ACTION::NONE };
     BUTTON_ACTION onLowAction { BUTTON_ACTION::NONE };
@@ -30,7 +30,7 @@ private:
 
 public:
     ButtonHandler(const uint8_t& leftButtonPin, const uint8_t& rightButtonPin);
-    Button getButton(uint8_t buttonPin) const;
+    Button getButton(char button) const;
 
     void update();
 

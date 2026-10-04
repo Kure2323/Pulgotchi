@@ -2,8 +2,7 @@
 #include <Adafruit_SSD1306.h>
 #include <Pet.hpp>
 #include <ButtonHandler.hpp>
-#include <App.hpp>
-
+#include <HomeMenu.hpp>
 
 /**
  * SSD1306 SCL goes to ESP32 SCL pin -> D22
@@ -25,6 +24,7 @@ constexpr uint8_t R_BUTTON { 23 };
 static Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT);
 static Pet pet;
 static ButtonHandler buttonHandler(L_BUTTON, R_BUTTON);
+static HomeMenu menu;
 
 // FLASH -> 4MB
 // RAM -> 520KB
@@ -35,7 +35,7 @@ void setup() {
   Serial.begin(115200);
   pinMode(L_BUTTON, INPUT_PULLUP);
   pinMode(R_BUTTON, INPUT_PULLUP);
-
+  menu.giveControl(&buttonHandler);
 
   // screen begin
   if (!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
@@ -63,5 +63,6 @@ void loop() {
 
   pet.update();
   buttonHandler.update();
+  menu.update();
 }
 

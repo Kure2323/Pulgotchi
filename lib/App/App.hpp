@@ -1,20 +1,22 @@
 #pragma once
 
 #include <Arduino.h>
-
 #include <ButtonHandler.hpp>
 
 
-class App {
+class App { // Intended to be an interface
 private:
-    ButtonHandler& button_handler;
+    const std::string title;
+    ButtonHandler* button_handler = nullptr;
     bool isGoBackBlocked { false };
-    void goBack();
 
 
 public:
-    App(ButtonHandler& button_handler);
+    App();
+    void giveControl(ButtonHandler* button_handler);
     ~App();
+    void load();
+    void shut();
     void update();
 };
 
